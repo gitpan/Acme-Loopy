@@ -5,9 +5,8 @@ SYNOPSIS
             loop {
                     my @row = get_data() or last;
                 
-                    if (${^LOOP} == 1) {    # first iteration
-                            print table_headers(\@row);
-                    }
+                    # First iteration only
+                    print table_headers(\@row) unless ${^LOOP};
                 
                     # All iterations
                     print table_row(\@row);
@@ -20,7 +19,8 @@ DESCRIPTION
     Syntax::Feature::Loop.
 
     Within the loop, the variable "${^LOOP}" can be used to obtain the
-    current iteration count.
+    current iteration count. This is a zero-based count, so is zero (false)
+    on the first journey around the loop.
 
     Keyword::Simple made defining the "loop" keyword itself so easy that
     "${^LOOP}" became the tricky part. (Or rather making it work with nested
